@@ -1,8 +1,37 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Snackbar,
+  Stack,
+  Typography,
+} from "@mui/material";
 import logo from "../../public/logo.svg";
 import { CheckBox } from "@mui/icons-material";
+import { useContext, useEffect } from "react";
+import AuthContext from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { loginUser, loginFailed, setLoginFailed, user, loginLoading } =
+    useContext(AuthContext);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
+
+  const handleClose = (event) => {
+    const reason = event?.reason;
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setLoginFailed(false);
+  };
   return (
     <Box sx={{ display: "flex", height: "100vh", width: "100vw" }}>
       <Box sx={{ width: "60%", height: "100%" }} />
@@ -75,6 +104,7 @@ const Login = () => {
 
         <Box
           component={"form"}
+          onSubmit={loginUser}
           sx={{
             gap: "16px",
             display: "flex",
@@ -92,9 +122,9 @@ const Login = () => {
           >
             <input
               required
-              type="email"
-              name="email"
-              placeholder="Email"
+              type="text"
+              name="username"
+              placeholder="Username"
               style={{
                 width: "100%",
                 border: "none",
@@ -189,10 +219,35 @@ const Login = () => {
               },
             }}
           >
-            Login
+            {loginLoading ? (
+              <CircularProgress
+                variant="indeterminate"
+                disableShrink
+                size={24}
+                sx={{ color: "#fff" }}
+              />
+            ) : (
+              "Login"
+            )}
           </Button>
         </Box>
       </Box>
+
+      <Snackbar
+        open={loginFailed}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          An error occurred while trying to login. Please try again.
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

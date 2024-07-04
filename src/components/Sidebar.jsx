@@ -1,10 +1,12 @@
 import { Box, Button, Collapse, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CollapsibleMenu from "./CollapsibleMenu";
 import { menuItems } from "../utils/constants";
+import AuthContext from "../context/AuthContext";
 
 const Sidebar = () => {
   const [menus, setMenus] = useState(menuItems);
+  const { logout } = useContext(AuthContext);
 
   const updateMenuState = (index) => {
     setMenus((prevMenus) => {
@@ -58,6 +60,7 @@ const Sidebar = () => {
       </span>
 
       <Button
+        onClick={logout}
         sx={{
           width: "100%",
           color: "#000",
