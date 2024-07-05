@@ -1,7 +1,10 @@
 import { Box, Button, Stack } from "@mui/material";
 import camera from "../assets/icons/camera.svg";
+import { useNavigate } from "react-router-dom";
 
 const AddNewEmployee = () => {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -33,6 +36,7 @@ const AddNewEmployee = () => {
         </Box>
 
         <Button
+          onClick={() => navigate("/employees/bulk-upload")}
           sx={{
             color: "#fff",
             fontfamily: "Lexend, sans-serif",
