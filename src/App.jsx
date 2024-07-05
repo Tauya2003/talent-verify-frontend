@@ -7,6 +7,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Dashboard from "./pages/Dashboard";
 import Employees from "./pages/Employees";
 import AllEmployees from "./pages/AllEmployees";
+import AddNewEmployee from "./pages/AddNewEmployee";
 
 function App() {
   return (
@@ -24,10 +25,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="/employees" element={<Employees />}>
               <Route index element={<AllEmployees />} />
-              <Route
-                path="add-new-employee"
-                element={<div>Add New Employee</div>}
-              />
+              <Route path="add-new-employee" element={<AddNewEmployee />} />
             </Route>
           </Route>
 
