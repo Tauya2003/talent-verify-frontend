@@ -9,6 +9,10 @@ const Home = () => {
       sx={{
         width: "100vw",
         height: "100vh",
+        bgcolor: "#16151C",
+        padding: "20px",
+        display: "flex",
+        gap: "30px",
       }}
     >
       <Sidebar />

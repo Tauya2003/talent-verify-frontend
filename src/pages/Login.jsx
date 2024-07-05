@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import logo from "../../public/logo.svg";
+import logo from "../assets/logo.svg";
 import { CheckBox } from "@mui/icons-material";
 import { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
