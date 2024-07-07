@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Employees from "./pages/Employees";
 import AllEmployees from "./pages/AllEmployees";
 import AddNewEmployee from "./pages/AddNewEmployee";
+import BulkEmployeeUpload from "./pages/BulkEmployeeUpload";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/employees" element={<Employees />}>
               <Route index element={<AllEmployees />} />
               <Route path="add-new-employee" element={<AddNewEmployee />} />
+              <Route path="bulk-upload" element={<BulkEmployeeUpload />} />
             </Route>
           </Route>
 
