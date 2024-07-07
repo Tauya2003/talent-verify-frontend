@@ -36,7 +36,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const EmployeesTable = () => {
+const EmployeesTable = ({ employees }) => {
+  console.log(employees);
+
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [page, setPage] = useState(0);
@@ -75,12 +77,12 @@ const EmployeesTable = () => {
           </TableHead>
 
           <TableBody>
-            {employeeData.map((employee, index) => (
+            {employees.map((employee, index) => (
               <TableRow key={index}>
-                <StyledTableCell>{employee.employeeName}</StyledTableCell>
-                <StyledTableCell>{employee.employeeId}</StyledTableCell>
+                <StyledTableCell>{employee?.name}</StyledTableCell>
+                <StyledTableCell>{employee.employee_id}</StyledTableCell>
                 <StyledTableCell>{employee.department}</StyledTableCell>
-                <StyledTableCell>{employee.role}</StyledTableCell>
+                <StyledTableCell>{employee?.roles[0]?.name}</StyledTableCell>
                 <StyledTableCell>{employee.joiningDate}</StyledTableCell>
                 <StyledTableCell>
                   <span

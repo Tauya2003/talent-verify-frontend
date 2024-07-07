@@ -4,9 +4,12 @@ import add from "../assets/icons/add.svg";
 import filter from "../assets/icons/filter.svg";
 import { useNavigate } from "react-router-dom";
 import EmployeesTable from "../components/EmployeesTable";
+import { useContext } from "react";
+import MainContext from "../context/MainContext";
 
 const AllEmployees = () => {
   const navigate = useNavigate();
+  const { employees } = useContext(MainContext);
 
   return (
     <Box
@@ -84,7 +87,7 @@ const AllEmployees = () => {
         </Box>
       </Stack>
 
-      <EmployeesTable />
+      <EmployeesTable employees={employees} />
     </Box>
   );
 };

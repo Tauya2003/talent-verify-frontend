@@ -9,10 +9,11 @@ import Employees from "./pages/Employees";
 import AllEmployees from "./pages/AllEmployees";
 import AddNewEmployee from "./pages/AddNewEmployee";
 import BulkEmployeeUpload from "./pages/BulkEmployeeUpload";
+import { MainProvider } from "./context/MainContext";
 
 function App() {
   return (
-    <>
+    <MainProvider>
       <AuthProvider>
         <Routes>
           <Route
@@ -34,7 +35,7 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </AuthProvider>
-    </>
+    </MainProvider>
   );
 }
 
