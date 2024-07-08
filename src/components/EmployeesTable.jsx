@@ -16,6 +16,7 @@ import view from "../assets/icons/view.svg";
 import edit from "../assets/icons/edit.svg";
 import deleteIcon from "../assets/icons/trash.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,8 +38,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const EmployeesTable = ({ employees }) => {
+  const navigate = useNavigate();
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
   const [page, setPage] = useState(0);
 
   const handleChangePage = (event, newPage) => {
@@ -99,6 +100,7 @@ const EmployeesTable = ({ employees }) => {
                 <StyledTableCell>
                   <Stack direction={"row"} gap={"10px"}>
                     <IconButton
+                      onClick={() => navigate(`/employees/${employee.name}`)}
                       sx={{
                         p: 0,
                         m: 0,

@@ -10,6 +10,9 @@ import AllEmployees from "./pages/AllEmployees";
 import AddNewEmployee from "./pages/AddNewEmployee";
 import BulkEmployeeUpload from "./pages/BulkEmployeeUpload";
 import { MainProvider } from "./context/MainContext";
+import EmployeeDetails from "./pages/EmployeeDetails";
+import ViewEmployeeDetails from "./components/ViewEmployeeDetails";
+import EmployeeHistory from "./components/EmployeeHistory";
 
 function App() {
   return (
@@ -29,6 +32,10 @@ function App() {
               <Route index element={<AllEmployees />} />
               <Route path="add-new-employee" element={<AddNewEmployee />} />
               <Route path="bulk-upload" element={<BulkEmployeeUpload />} />
+              <Route path=":employee_name" element={<EmployeeDetails />}>
+                <Route index element={<ViewEmployeeDetails />} />
+                <Route path="history" element={<EmployeeHistory />} />
+              </Route>
             </Route>
           </Route>
 
