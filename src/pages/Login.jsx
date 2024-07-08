@@ -12,6 +12,7 @@ import { CheckBox } from "@mui/icons-material";
 import { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import dashboard from "../assets/images/dashboard.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,7 +35,16 @@ const Login = () => {
   };
   return (
     <Box sx={{ display: "flex", height: "100vh", width: "100vw" }}>
-      <Box sx={{ width: "60%", height: "100%" }} />
+      <Box
+        sx={{
+          width: "60%",
+          height: "100%",
+          backgroundImage: `url(${dashboard})`,
+          backgroundSize: "70%",
+          backgroundPosition: "102% 50%",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
 
       <Box
         sx={{
