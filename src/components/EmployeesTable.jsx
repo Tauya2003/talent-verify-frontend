@@ -37,8 +37,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const EmployeesTable = ({ employees }) => {
-  console.log(employees);
-
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [page, setPage] = useState(0);
@@ -70,7 +68,6 @@ const EmployeesTable = ({ employees }) => {
               <StyledTableCell>Employee ID</StyledTableCell>
               <StyledTableCell>Department</StyledTableCell>
               <StyledTableCell>Role</StyledTableCell>
-              <StyledTableCell>Joining Date</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
               <StyledTableCell>Actions</StyledTableCell>
             </TableRow>
@@ -82,21 +79,21 @@ const EmployeesTable = ({ employees }) => {
                 <StyledTableCell>{employee?.name}</StyledTableCell>
                 <StyledTableCell>{employee.employee_id}</StyledTableCell>
                 <StyledTableCell>{employee.department}</StyledTableCell>
-                <StyledTableCell>{employee?.roles[0]?.name}</StyledTableCell>
-                <StyledTableCell>{employee.joiningDate}</StyledTableCell>
+                <StyledTableCell>
+                  {employee.roles.find((role) => role.current)?.name}
+                </StyledTableCell>
                 <StyledTableCell>
                   <span
                     style={{
-                      color: employee.status === "Active" ? "#7152F3" : "#ccc",
-                      backgroundColor:
-                        employee.status === "Active"
-                          ? "rgba(113, 82, 243, 0.10)"
-                          : "rgba(162, 161, 168, 0.10)",
+                      color: employee.status ? "#7152F3" : "#ccc",
+                      backgroundColor: employee.status
+                        ? "rgba(113, 82, 243, 0.10)"
+                        : "rgba(162, 161, 168, 0.10)",
                       padding: "3px 8px",
                       borderRadius: "4px",
                     }}
                   >
-                    {employee.status}
+                    {employee.status ? "Active" : "Left"}
                   </span>
                 </StyledTableCell>
                 <StyledTableCell>
