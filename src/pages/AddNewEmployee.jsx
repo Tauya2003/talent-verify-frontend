@@ -1,36 +1,42 @@
-import { Box, Button, Stack } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Snackbar,
+  Stack,
+} from "@mui/material";
 import camera from "../assets/icons/camera.svg";
 import { useNavigate } from "react-router-dom";
-import { postToAPI } from "../utils/postToAPi";
+import { useContext } from "react";
+import MainContext from "../context/MainContext";
 
 const AddNewEmployee = () => {
   const navigate = useNavigate();
+  const {
+    addNewEmployee,
+    departments,
+    error,
+    success,
+    setError,
+    setSuccess,
+    loading,
+  } = useContext(MainContext);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleClose = (event) => {
+    const reason = event?.reason;
+    if (reason === "clickaway") {
+      return;
+    }
 
-    const data = {
-      name: e.target.fname.value + " " + e.target.lname.value,
-      employee_id: e.target.employee_id.value,
-      company: 1,
-      department: e.target.department.value,
-      roles: [
-        {
-          name: e.target.role.value,
-          duties: e.target.duties.value,
-        },
-      ],
-    };
-
-    postToAPI("employees/new/", data).then((response) => {
-      console.log(response);
-    });
+    setError(null);
+    setSuccess(false);
   };
 
   return (
     <Box
       component="form"
-      onSubmit={handleSubmit}
+      onSubmit={addNewEmployee}
       sx={{
         flex: 1,
         borderRadius: "10px",
@@ -92,6 +98,7 @@ const AddNewEmployee = () => {
           flex: 1,
         }}
       >
+        {/* First Name */}
         <Box
           sx={{
             display: "flex",
@@ -120,6 +127,7 @@ const AddNewEmployee = () => {
           />
         </Box>
 
+        {/* Last Name */}
         <Box
           sx={{
             display: "flex",
@@ -148,6 +156,7 @@ const AddNewEmployee = () => {
           />
         </Box>
 
+        {/* Employee Id */}
         <Box
           sx={{
             display: "flex",
@@ -176,6 +185,7 @@ const AddNewEmployee = () => {
           />
         </Box>
 
+        {/* Department */}
         <Box
           sx={{
             display: "flex",
@@ -185,7 +195,7 @@ const AddNewEmployee = () => {
             border: "1px solid rgba(162, 161, 168, 0.20)",
           }}
         >
-          <input
+          {/* <input
             required
             type="text"
             name="department"
@@ -201,7 +211,37 @@ const AddNewEmployee = () => {
               fontWeight: "300",
               lineHeight: "24px",
             }}
-          />
+          /> */}
+          <select
+            required
+            name="department"
+            placeholder="Department"
+            style={{
+              border: "none",
+              width: "100%",
+              outline: "none",
+              fontSize: "16px",
+              backgroundColor: "transparent",
+              color: "#fff",
+              fontFamily: "Lexend, sans-sarif",
+              fontWeight: "300",
+              lineHeight: "24px",
+            }}
+          >
+            <option value="" selected disabled>
+              Department
+            </option>
+
+            {departments.map((department, index) => (
+              <option
+                key={index}
+                value={department.name}
+                style={{ color: "#000" }}
+              >
+                {department.name}
+              </option>
+            ))}
+          </select>
         </Box>
 
         <Box
@@ -303,9 +343,50 @@ const AddNewEmployee = () => {
             },
           }}
         >
-          Save
+          {loading ? (
+            <CircularProgress
+              variant="indeterminate"
+              disableShrink
+              size={24}
+              sx={{ color: "#fff", mx: "6px" }}
+            />
+          ) : (
+            "Save"
+          )}
         </Button>
       </Box>
+
+      <Snackbar
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {error ? error : "An error occurred. Please try again."}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={success}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Saved Successfuly!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

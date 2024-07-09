@@ -13,6 +13,52 @@ export const MainProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  // Function to add a new employee
+  const addNewEmployee = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get("fname") + " " + formData.get("lname"),
+      employee_id: formData.get("employee_id"),
+      company: company.name,
+      department: formData.get("department"),
+      roles: [
+        {
+          name: formData.get("role"),
+          duties: formData.get("duties"),
+        },
+      ],
+    };
+
+    try {
+      postToAPI("employees/new/", data).then((response) => {
+        if (response.status === 201) {
+          setEmployees([...employees, response.data]);
+          setLoading(false);
+          setSuccess(true);
+          form.reset();
+        } else {
+          setError(
+            response.data.error.employee_id[0]
+              ? response.data.error.employee_id[0]
+              : "An error occurred. Please try again."
+          );
+          setLoading(false);
+          setSuccess(false);
+        }
+      });
+    } catch (err) {
+      setError(err);
+      setLoading(false);
+      setSuccess(false);
+    }
+  };
+
+  // Function for adding a new employee
   const addNewDepartment = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -74,6 +120,7 @@ export const MainProvider = ({ children }) => {
     success,
 
     addNewDepartment,
+    addNewEmployee,
     setError,
     setSuccess,
   };

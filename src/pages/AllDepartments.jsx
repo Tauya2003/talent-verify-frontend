@@ -63,6 +63,8 @@ const AllDepartments = () => {
           display: "flex",
           justifyContent: "space-between",
           flexWrap: "wrap",
+          gap: "20px",
+          alignItems: "flex-start",
         }}
       >
         {departments.map((department, index) => (

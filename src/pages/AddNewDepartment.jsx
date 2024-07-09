@@ -171,7 +171,6 @@ const AddNewDepartment = () => {
             },
           }}
         >
-          {" "}
           {loading ? (
             <CircularProgress
               variant="indeterminate"
