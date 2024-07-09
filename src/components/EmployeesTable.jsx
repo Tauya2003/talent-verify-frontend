@@ -16,6 +16,7 @@ import view from "../assets/icons/view.svg";
 import edit from "../assets/icons/edit.svg";
 import deleteIcon from "../assets/icons/trash.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,9 +37,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const EmployeesTable = () => {
+const EmployeesTable = ({ employees }) => {
+  const navigate = useNavigate();
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
   const [page, setPage] = useState(0);
 
   const handleChangePage = (event, newPage) => {
@@ -68,38 +69,38 @@ const EmployeesTable = () => {
               <StyledTableCell>Employee ID</StyledTableCell>
               <StyledTableCell>Department</StyledTableCell>
               <StyledTableCell>Role</StyledTableCell>
-              <StyledTableCell>Joining Date</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
               <StyledTableCell>Actions</StyledTableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
-            {employeeData.map((employee, index) => (
+            {employees.map((employee, index) => (
               <TableRow key={index}>
-                <StyledTableCell>{employee.employeeName}</StyledTableCell>
-                <StyledTableCell>{employee.employeeId}</StyledTableCell>
+                <StyledTableCell>{employee?.name}</StyledTableCell>
+                <StyledTableCell>{employee.employee_id}</StyledTableCell>
                 <StyledTableCell>{employee.department}</StyledTableCell>
-                <StyledTableCell>{employee.role}</StyledTableCell>
-                <StyledTableCell>{employee.joiningDate}</StyledTableCell>
+                <StyledTableCell>
+                  {employee.roles.find((role) => role.current)?.name}
+                </StyledTableCell>
                 <StyledTableCell>
                   <span
                     style={{
-                      color: employee.status === "Active" ? "#7152F3" : "#ccc",
-                      backgroundColor:
-                        employee.status === "Active"
-                          ? "rgba(113, 82, 243, 0.10)"
-                          : "rgba(162, 161, 168, 0.10)",
+                      color: employee.status ? "#7152F3" : "#ccc",
+                      backgroundColor: employee.status
+                        ? "rgba(113, 82, 243, 0.10)"
+                        : "rgba(162, 161, 168, 0.10)",
                       padding: "3px 8px",
                       borderRadius: "4px",
                     }}
                   >
-                    {employee.status}
+                    {employee.status ? "Active" : "Left"}
                   </span>
                 </StyledTableCell>
                 <StyledTableCell>
                   <Stack direction={"row"} gap={"10px"}>
                     <IconButton
+                      onClick={() => navigate(`/employees/${employee.name}`)}
                       sx={{
                         p: 0,
                         m: 0,

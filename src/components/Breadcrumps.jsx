@@ -4,9 +4,16 @@ import Typography from "@mui/material/Typography";
 
 function DynamicBreadcrumbs() {
   const location = useLocation();
-  const pathSegments = location.pathname.split("/").filter(Boolean);
 
-  console.log(location.pathname);
+  function decodeURIComponent(str) {
+    return decodeURIComponent(str); // Decodes URL-encoded string
+  }
+
+  const pathSegments = location.pathname
+    .split("/")
+    .filter(Boolean)
+    .map((segment) => decodeURIComponent(segment));
+
   const breadcrumbs = pathSegments.map((segment, index) => {
     const href = `/${pathSegments.slice(0, index + 1).join("/")}`;
     return index === pathSegments.length - 1 ? (
