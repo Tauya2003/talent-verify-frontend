@@ -75,7 +75,6 @@ const AllEmployees = () => {
               border: "1px solid rgba(162, 161, 168, 0.20)",
               textTransform: "capitalize",
               transition: "all 0.3s",
-              zIndex: -1,
 
               "&:hover": {
                 bgcolor: "rgba(162, 161, 168, 0.10)",

@@ -9,6 +9,7 @@ import Search from "./Search";
 const Navbar = () => {
   const location = useLocation();
   const [isDashboard, setIsDashboard] = useState(false);
+  const [heading, setHeading] = useState("All Employees");
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -16,6 +17,12 @@ const Navbar = () => {
       setIsDashboard(true);
     } else {
       setIsDashboard(false);
+    }
+
+    if (location.pathname.includes("employees")) {
+      setHeading("All Employees");
+    } else if (location.pathname.includes("departments")) {
+      setHeading("All Departments");
     }
   }, [location.pathname]);
 
@@ -83,7 +90,7 @@ const Navbar = () => {
             textTransform: "capitalize",
           }}
         >
-          {isDashboard ? "Hello " + user.username + " 👋🏻" : "All Employees"}
+          {isDashboard ? "Hello " + user.username + " 👋🏻" : heading}
         </Typography>
 
         {isDashboard ? (

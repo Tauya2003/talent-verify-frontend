@@ -7,6 +7,7 @@ export default MainContext;
 export const MainProvider = ({ children }) => {
   const [employees, setEmployees] = useState([]);
   const [company, setCompany] = useState({});
+  const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
     fetchFromAPI("employees/").then((response) => {
@@ -18,6 +19,8 @@ export const MainProvider = ({ children }) => {
     fetchFromAPI("companies/").then((response) => {
       if (response.status === 200) {
         setCompany(response.data[0]);
+
+        setDepartments(response.data[0].departments);
       }
     });
   }, []);
@@ -25,6 +28,7 @@ export const MainProvider = ({ children }) => {
   const contextData = {
     employees,
     company,
+    departments,
   };
 
   return (

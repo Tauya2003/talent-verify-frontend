@@ -13,6 +13,9 @@ import { MainProvider } from "./context/MainContext";
 import EmployeeDetails from "./pages/EmployeeDetails";
 import ViewEmployeeDetails from "./components/ViewEmployeeDetails";
 import EmployeeHistory from "./components/EmployeeHistory";
+import Departments from "./pages/Departments";
+import AllDepartments from "./pages/AllDepartments";
+import ViewDepartment from "./pages/ViewDepartment";
 
 function App() {
   return (
@@ -36,6 +39,10 @@ function App() {
                 <Route index element={<ViewEmployeeDetails />} />
                 <Route path="history" element={<EmployeeHistory />} />
               </Route>
+            </Route>
+            <Route path="/departments" element={<Departments />}>
+              <Route index element={<AllDepartments />} />
+              <Route path=":department_name" element={<ViewDepartment />} />
             </Route>
           </Route>
 
