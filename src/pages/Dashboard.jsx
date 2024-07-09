@@ -1,14 +1,12 @@
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useContext } from "react";
-import AuthContext from "../context/AuthContext";
-import search from "../assets/icons/search.svg";
-import notifications from "../assets/icons/notifications.svg";
 import users from "../assets/icons/users.svg";
-import { Edit } from "@mui/icons-material";
 import Navbar from "../components/Navbar";
+import MainContext from "../context/MainContext";
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
+  const { company } = useContext(MainContext);
+
   return (
     <Box sx={{ py: "15px", pr: "10px", flex: 1 }}>
       <Navbar />
@@ -16,7 +14,7 @@ const Dashboard = () => {
       {/* Company name start */}
       <Box
         sx={{
-          width: "640px",
+          width: "100%",
           height: "120px",
           borderRadius: "10px",
           border: "1px solid rgba(162, 161, 168, 0.20)",
@@ -63,7 +61,7 @@ const Dashboard = () => {
                   color: "#fff",
                 }}
               >
-                Company Name
+                {company?.name}
               </Typography>
 
               <Typography
@@ -75,7 +73,7 @@ const Dashboard = () => {
                   lineHeight: "18px",
                 }}
               >
-                Date Registered
+                {company?.registration_date}
               </Typography>
             </Box>
           </Box>
@@ -101,6 +99,480 @@ const Dashboard = () => {
         </Box>
       </Box>
       {/* Company name end */}
+
+      {/* Company details start */}
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* total employees */}
+        <Box
+          sx={{
+            width: "32%",
+            borderRadius: "10px",
+            border: "1px solid rgba(162, 161, 168, 0.20)",
+            mt: "20px",
+            pb: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              borderBottom: "1px solid rgba(162, 161, 168, 0.20)",
+              px: "16px",
+              pt: "16px",
+              pb: "10px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "40px",
+                  height: "40px",
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: "10px",
+                  bgcolor: "rgba(113, 82, 243, 0.05)",
+                }}
+              >
+                <img src={users} alt="users" />
+              </Box>
+
+              <Typography
+                sx={{
+                  color: "#fff",
+                  fontFamily: "Lexend, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 300,
+                  lineHeight: "22px",
+                }}
+              >
+                Total Employee
+              </Typography>
+            </Box>
+
+            <Typography
+              sx={{
+                color: "#fff",
+                fontFamily: "Lexend, sans-serif",
+                fontSize: "30px",
+                fontWeight: 600,
+                lineHeight: "40px",
+                ml: "10px",
+              }}
+            >
+              {company?.num_employees}
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* total departments */}
+        <Box
+          sx={{
+            width: "32%",
+            borderRadius: "10px",
+            border: "1px solid rgba(162, 161, 168, 0.20)",
+            mt: "20px",
+            pb: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              borderBottom: "1px solid rgba(162, 161, 168, 0.20)",
+              px: "16px",
+              pt: "16px",
+              pb: "10px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "40px",
+                  height: "40px",
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: "10px",
+                  bgcolor: "rgba(113, 82, 243, 0.05)",
+                }}
+              >
+                <img src={users} alt="users" />
+              </Box>
+
+              <Typography
+                sx={{
+                  color: "#fff",
+                  fontFamily: "Lexend, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 300,
+                  lineHeight: "22px",
+                }}
+              >
+                Total Departments
+              </Typography>
+            </Box>
+
+            <Typography
+              sx={{
+                color: "#fff",
+                fontFamily: "Lexend, sans-serif",
+                fontSize: "30px",
+                fontWeight: 600,
+                lineHeight: "40px",
+                ml: "10px",
+              }}
+            >
+              {company?.departments?.length}
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* Comapany reg number */}
+        <Box
+          sx={{
+            width: "32%",
+            borderRadius: "10px",
+            border: "1px solid rgba(162, 161, 168, 0.20)",
+            mt: "20px",
+            pb: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              borderBottom: "1px solid rgba(162, 161, 168, 0.20)",
+              px: "16px",
+              pt: "16px",
+              pb: "10px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "40px",
+                  height: "40px",
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: "10px",
+                  bgcolor: "rgba(113, 82, 243, 0.05)",
+                }}
+              >
+                <img src={users} alt="users" />
+              </Box>
+
+              <Typography
+                sx={{
+                  color: "#fff",
+                  fontFamily: "Lexend, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 300,
+                  lineHeight: "22px",
+                }}
+              >
+                Company Reg Number
+              </Typography>
+            </Box>
+
+            <Typography
+              sx={{
+                color: "#fff",
+                fontFamily: "Lexend, sans-serif",
+                fontSize: "24px",
+                lineHeight: "40px",
+                ml: "10px",
+              }}
+            >
+              {company?.registartion_number}
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* Address*/}
+        <Box
+          sx={{
+            width: "32%",
+            borderRadius: "10px",
+            border: "1px solid rgba(162, 161, 168, 0.20)",
+            mt: "20px",
+            pb: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              borderBottom: "1px solid rgba(162, 161, 168, 0.20)",
+              px: "16px",
+              pt: "16px",
+              pb: "10px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "40px",
+                  height: "40px",
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: "10px",
+                  bgcolor: "rgba(113, 82, 243, 0.05)",
+                }}
+              >
+                <img src={users} alt="users" />
+              </Box>
+
+              <Typography
+                sx={{
+                  color: "#fff",
+                  fontFamily: "Lexend, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 300,
+                  lineHeight: "22px",
+                }}
+              >
+                Address
+              </Typography>
+            </Box>
+
+            <Typography
+              sx={{
+                color: "#fff",
+                fontFamily: "Lexend, sans-serif",
+                fontSize: "18px",
+                lineHeight: "40px",
+                ml: "10px",
+              }}
+            >
+              {company?.address}
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* Contact Person */}
+        <Box
+          sx={{
+            width: "32%",
+            borderRadius: "10px",
+            border: "1px solid rgba(162, 161, 168, 0.20)",
+            mt: "20px",
+            pb: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              borderBottom: "1px solid rgba(162, 161, 168, 0.20)",
+              px: "16px",
+              pt: "16px",
+              pb: "10px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "40px",
+                  height: "40px",
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: "10px",
+                  bgcolor: "rgba(113, 82, 243, 0.05)",
+                }}
+              >
+                <img src={users} alt="users" />
+              </Box>
+
+              <Typography
+                sx={{
+                  color: "#fff",
+                  fontFamily: "Lexend, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 300,
+                  lineHeight: "22px",
+                }}
+              >
+                Contact Person
+              </Typography>
+            </Box>
+
+            <Typography
+              sx={{
+                color: "#fff",
+                fontFamily: "Lexend, sans-serif",
+                fontSize: "18px",
+                lineHeight: "40px",
+                ml: "10px",
+              }}
+            >
+              {company?.contact_person}
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* email */}
+        <Box
+          sx={{
+            width: "32%",
+            borderRadius: "10px",
+            border: "1px solid rgba(162, 161, 168, 0.20)",
+            mt: "20px",
+            pb: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              borderBottom: "1px solid rgba(162, 161, 168, 0.20)",
+              px: "16px",
+              pt: "16px",
+              pb: "10px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "40px",
+                  height: "40px",
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: "10px",
+                  bgcolor: "rgba(113, 82, 243, 0.05)",
+                }}
+              >
+                <img src={users} alt="users" />
+              </Box>
+
+              <Typography
+                sx={{
+                  color: "#fff",
+                  fontFamily: "Lexend, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 300,
+                  lineHeight: "22px",
+                }}
+              >
+                Email
+              </Typography>
+            </Box>
+
+            <Typography
+              sx={{
+                color: "#fff",
+                fontFamily: "Lexend, sans-serif",
+                fontSize: "18px",
+                lineHeight: "40px",
+                ml: "10px",
+              }}
+            >
+              {company?.email}
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* Contact Number */}
+        <Box
+          sx={{
+            width: "32%",
+            borderRadius: "10px",
+            border: "1px solid rgba(162, 161, 168, 0.20)",
+            mt: "20px",
+            pb: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              borderBottom: "1px solid rgba(162, 161, 168, 0.20)",
+              px: "16px",
+              pt: "16px",
+              pb: "10px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "40px",
+                  height: "40px",
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: "10px",
+                  bgcolor: "rgba(113, 82, 243, 0.05)",
+                }}
+              >
+                <img src={users} alt="users" />
+              </Box>
+
+              <Typography
+                sx={{
+                  color: "#fff",
+                  fontFamily: "Lexend, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 300,
+                  lineHeight: "22px",
+                }}
+              >
+                Contact Number
+              </Typography>
+            </Box>
+
+            <Typography
+              sx={{
+                color: "#fff",
+                fontFamily: "Lexend, sans-serif",
+                fontSize: "24px",
+                lineHeight: "40px",
+                ml: "10px",
+              }}
+            >
+              {company?.phone}
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+      {/* Company details end */}
     </Box>
   );
 };
