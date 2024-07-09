@@ -1,6 +1,5 @@
 import { Box, Button, Stack } from "@mui/material";
 import Search from "../components/Search";
-import add from "../assets/icons/add.svg";
 import filter from "../assets/icons/filter.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
@@ -29,33 +28,6 @@ const ViewDepartment = () => {
         <Search />
 
         <Button
-          onClick={() => navigate("add%20new")}
-          startIcon={<img src={add} alt="add" />}
-          sx={{
-            color: "#fff",
-            fontFamily: "Lexend, sans-serif",
-            fontSize: "16px",
-            fontWeight: 300,
-            lineHeight: "24px",
-            display: "flex",
-            gap: "10px",
-            padding: "13px 20px",
-            borderRadius: "10px",
-            bgcolor: "#7152F3",
-            textTransform: "capitalize",
-            transition: "all 0.3s",
-            ml: "auto",
-
-            "&:hover": {
-              bgcolor: "#7152F3",
-              opacity: "0.8",
-            },
-          }}
-        >
-          Add New Department
-        </Button>
-
-        <Button
           startIcon={<img src={filter} alt="filter" />}
           sx={{
             color: "#fff",
@@ -70,6 +42,7 @@ const ViewDepartment = () => {
             border: "1px solid rgba(162, 161, 168, 0.20)",
             textTransform: "capitalize",
             transition: "all 0.3s",
+            ml: "auto",
 
             "&:hover": {
               bgcolor: "rgba(162, 161, 168, 0.10)",

@@ -1,9 +1,17 @@
-import { Avatar, Box, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Search from "../components/Search";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import MainContext from "../context/MainContext";
 import right from "../assets/icons/right.svg";
+import add from "../assets/icons/add.svg";
 
 const AllDepartments = () => {
   const navigate = useNavigate();
@@ -18,8 +26,35 @@ const AllDepartments = () => {
         p: "20px",
       }}
     >
-      <Stack mb={"30px"}>
+      <Stack mb={"30px"} direction={"row"}>
         <Search />
+
+        <Button
+          onClick={() => navigate("add-new")}
+          startIcon={<img src={add} alt="add" />}
+          sx={{
+            color: "#fff",
+            fontFamily: "Lexend, sans-serif",
+            fontSize: "16px",
+            fontWeight: 300,
+            lineHeight: "24px",
+            display: "flex",
+            gap: "10px",
+            padding: "13px 20px",
+            borderRadius: "10px",
+            bgcolor: "#7152F3",
+            textTransform: "capitalize",
+            transition: "all 0.3s",
+            ml: "auto",
+
+            "&:hover": {
+              bgcolor: "#7152F3",
+              opacity: "0.8",
+            },
+          }}
+        >
+          Add New Department
+        </Button>
       </Stack>
 
       <Box

@@ -16,6 +16,7 @@ import EmployeeHistory from "./components/EmployeeHistory";
 import Departments from "./pages/Departments";
 import AllDepartments from "./pages/AllDepartments";
 import ViewDepartment from "./pages/ViewDepartment";
+import AddNewDepartment from "./pages/AddNewDepartment";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             <Route path="/departments" element={<Departments />}>
               <Route index element={<AllDepartments />} />
               <Route path=":department_name" element={<ViewDepartment />} />
+              <Route path="add-new" element={<AddNewDepartment />} />
             </Route>
           </Route>
 
