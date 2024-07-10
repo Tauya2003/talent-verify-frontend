@@ -109,6 +109,9 @@ const EmployeesTable = ({ employees }) => {
                       <img src={view} alt="view" />
                     </IconButton>
                     <IconButton
+                      onClick={() =>
+                        navigate(`/employees/${employee.name}/edit`)
+                      }
                       sx={{
                         p: 0,
                         m: 0,

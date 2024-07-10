@@ -187,6 +187,7 @@ export default function DepartmentTable({ employees }) {
                     <img src={view} alt="view" style={{ width: "100%" }} />
                   </IconButton>
                   <IconButton
+                    onClick={() => navigate(`/employees/${employee.name}/edit`)}
                     sx={{
                       p: 0,
                       m: 0,
