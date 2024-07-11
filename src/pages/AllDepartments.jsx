@@ -67,7 +67,7 @@ const AllDepartments = () => {
           alignItems: "flex-start",
         }}
       >
-        {departments.map((department, index) => (
+        {departments?.map((department, index) => (
           <Box
             key={index}
             sx={{
@@ -95,7 +95,7 @@ const AllDepartments = () => {
                     lineHeight: "30px",
                   }}
                 >
-                  {department.name + " Department"}
+                  {department?.name + " Department"}
                 </Typography>
                 <Typography
                   sx={{
@@ -134,7 +134,9 @@ const AllDepartments = () => {
 
             <Stack direction={"column"} mt={"20px"} gap={"18px"}>
               {employees
-                .filter((employee) => employee.department === department.name)
+                ?.filter(
+                  (employee) => employee?.department === department?.name
+                )
                 .slice(0, 5)
                 .map((employee, index) => (
                   <Stack
@@ -154,7 +156,7 @@ const AllDepartments = () => {
                           lineHeight: "24px",
                         }}
                       >
-                        {employee.name}
+                        {employee?.name}
                       </Typography>
 
                       <Typography
@@ -167,8 +169,8 @@ const AllDepartments = () => {
                         }}
                       >
                         {
-                          employee.roles.find((employee) => employee.current)
-                            .name
+                          employee?.roles?.find((employee) => employee.current)
+                            ?.name
                         }
                       </Typography>
                     </Box>

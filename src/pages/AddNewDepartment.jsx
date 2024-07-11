@@ -35,29 +35,7 @@ const AddNewDepartment = () => {
         p: "20px",
       }}
     >
-      <Stack width={"100%"} direction={"row"} alignItems={"center"}>
-        <Button
-          onClick={() => navigate("/employees/bulk-upload")}
-          sx={{
-            color: "#fff",
-            fontfamily: "Lexend, sans-serif",
-            fontSize: "16px",
-            fontWeight: "300",
-            lineHeight: "24px",
-            textTransform: "capitalize",
-            padding: "10px 20px",
-            borderRadius: "10px",
-            bgcolor: "#7152F3",
-            ml: "auto",
-
-            "&:hover": {
-              bgcolor: "#7152F399",
-            },
-          }}
-        >
-          Bulk Upload
-        </Button>
-      </Stack>
+      <Stack width={"100%"} direction={"row"} alignItems={"center"}></Stack>
 
       <Box
         sx={{

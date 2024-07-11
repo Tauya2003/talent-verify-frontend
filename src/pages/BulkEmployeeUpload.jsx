@@ -1,9 +1,25 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Alert, Box, Button, Snackbar, Typography } from "@mui/material";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import MainContext from "../context/MainContext";
 
 const BulkEmployeeUpload = () => {
+  const { uploadfile, loading, error, setSuccess, setError, success } =
+    useContext(MainContext);
+
+  const handleClose = (event) => {
+    const reason = event?.reason;
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setError(null);
+    setSuccess(false);
+  };
   return (
     <Box
+      component={"form"}
+      onSubmit={uploadfile}
       sx={{
         flex: 1,
         borderRadius: "10px",
@@ -22,7 +38,7 @@ const BulkEmployeeUpload = () => {
           color: "#fff",
         }}
       >
-        Upload a CSV, text or Excel file to bulk upload employees
+        Upload a CSV or Excel file to bulk upload or update employees
       </Typography>
 
       <Box
@@ -33,6 +49,9 @@ const BulkEmployeeUpload = () => {
       >
         <input
           type="file"
+          required
+          accept=".csv, .xlsx"
+          name="file"
           style={{
             border: "none",
             width: "100%",
@@ -48,6 +67,7 @@ const BulkEmployeeUpload = () => {
       </Box>
 
       <Button
+        type="submit"
         sx={{
           mt: "20px",
           backgroundColor: "#7C5DFA",
@@ -87,6 +107,38 @@ const BulkEmployeeUpload = () => {
           Download a sample file
         </Typography>
       </Link>
+
+      <Snackbar
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {error ? error : "An error occurred. Please try again."}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={success}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Saved Successfuly!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

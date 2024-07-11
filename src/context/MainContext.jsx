@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { postToAPI } from "../utils/postToAPi";
 import { update } from "../utils/update";
+import axios from "axios";
 
 const MainContext = createContext(null);
 export default MainContext;
@@ -195,6 +196,49 @@ export const MainProvider = ({ children }) => {
     }
   };
 
+  // Bulk Uploading of employees
+  const uploadfile = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const data = {
+      file: e.target.file.files[0],
+    };
+
+    console.log(data);
+
+    const upload = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.post(
+          "http://127.0.0.1:8000/api/upload/",
+          data,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        return response;
+      } catch (error) {
+        return error;
+      }
+    };
+
+    upload().then((response) => {
+      if (response.status === 201) {
+        setLoading(false);
+        setSuccess(true);
+        form.reset();
+      } else {
+        setError("An error occurred. Please try again.");
+        setLoading(false);
+        setSuccess(false);
+      }
+    });
+  };
+
   useEffect(() => {
     fetchFromAPI("employees/").then((response) => {
       if (response.status === 200) {
@@ -223,6 +267,7 @@ export const MainProvider = ({ children }) => {
     addNewEmployee,
     addNewRole,
     updateEmployee,
+    uploadfile,
     setError,
     setSuccess,
   };

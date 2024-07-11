@@ -31,8 +31,8 @@ const EditEmployee = () => {
   const [lname, setLname] = useState(employee.name.split(" ")[1]);
   const [employee_id, setEmployeeId] = useState(employee.employee_id);
   const [department, setDepartment] = useState(employee.department);
-  const [role, setRole] = useState(employee.roles[0].name);
-  const [duties, setDuties] = useState(employee.roles[0].duties);
+  const [role, setRole] = useState(employee.roles[0]?.name);
+  const [duties, setDuties] = useState(employee.roles[0]?.duties);
 
   const handleClose = (event) => {
     const reason = event?.reason;
