@@ -6,22 +6,33 @@ import {
   Snackbar,
   Stack,
 } from "@mui/material";
-import camera from "../assets/icons/camera.svg";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import MainContext from "../context/MainContext";
 
-const AddNewEmployee = () => {
+const EditEmployee = () => {
   const navigate = useNavigate();
+  const { employee_name } = useParams();
   const {
-    addNewEmployee,
+    employees,
     departments,
+    loading,
+    updateEmployee,
     error,
     success,
     setError,
     setSuccess,
-    loading,
   } = useContext(MainContext);
+  const employee = employees.find(
+    (employee) => employee.name === employee_name
+  );
+
+  const [fname, setFname] = useState(employee.name.split(" ")[0]);
+  const [lname, setLname] = useState(employee.name.split(" ")[1]);
+  const [employee_id, setEmployeeId] = useState(employee.employee_id);
+  const [department, setDepartment] = useState(employee.department);
+  const [role, setRole] = useState(employee.roles[0]?.name);
+  const [duties, setDuties] = useState(employee.roles[0]?.duties);
 
   const handleClose = (event) => {
     const reason = event?.reason;
@@ -31,12 +42,14 @@ const AddNewEmployee = () => {
 
     setError(null);
     setSuccess(false);
+
+    success && navigate(`/employees/${fname} ${lname}`);
   };
 
   return (
     <Box
-      component="form"
-      onSubmit={addNewEmployee}
+      component={"form"}
+      onSubmit={(e) => updateEmployee(e, employee.id)}
       sx={{
         flex: 1,
         borderRadius: "10px",
@@ -45,45 +58,35 @@ const AddNewEmployee = () => {
       }}
     >
       <Stack
-        width={"100%"}
         direction={"row"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
+        sx={{
+          pb: "30px",
+          width: "100%",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+          borderBottom: "1px solid rgba(162, 161, 168, 0.20)",
+        }}
       >
-        <Box
-          sx={{
-            width: "100px",
-            height: "100px",
-            flexShrink: 0,
-            borderRadius: "10px",
-            border: "1px dashed rgba(162, 161, 168, 0.20)",
-            bgcolor: "rgba(162, 161, 168, 0.05)",
-            display: "grid",
-            placeContent: "center",
-          }}
-        >
-          <img src={camera} alt="camera" />
-        </Box>
-
         <Button
-          onClick={() => navigate("/employees/bulk-upload")}
+          onClick={() => navigate(`/employees/${employee.name}/new-role`)}
           sx={{
             color: "#fff",
-            fontfamily: "Lexend, sans-serif",
+            fontFamily: "Lexend, sans-serif",
             fontSize: "16px",
-            fontWeight: "300",
+            fontWeight: 300,
             lineHeight: "24px",
             textTransform: "capitalize",
             padding: "10px 20px",
             borderRadius: "10px",
             bgcolor: "#7152F3",
+            ml: "auto",
 
             "&:hover": {
-              bgcolor: "#7152F399",
+              bgcolor: "#7152F3",
             },
           }}
         >
-          Bulk Upload
+          New Role
         </Button>
       </Stack>
 
@@ -110,6 +113,8 @@ const AddNewEmployee = () => {
         >
           <input
             required
+            value={fname}
+            onChange={(e) => setFname(e.target.value)}
             type="text"
             name="fname"
             placeholder="First Name"
@@ -139,6 +144,8 @@ const AddNewEmployee = () => {
         >
           <input
             required
+            value={lname}
+            onChange={(e) => setLname(e.target.value)}
             type="text"
             name="lname"
             placeholder="Last Name"
@@ -168,6 +175,9 @@ const AddNewEmployee = () => {
         >
           <input
             required
+            disabled
+            value={employee_id}
+            onChange={(e) => setEmployeeId(e.target.value)}
             type="text"
             name="employee_id"
             placeholder="Employee ID"
@@ -195,25 +205,10 @@ const AddNewEmployee = () => {
             border: "1px solid rgba(162, 161, 168, 0.20)",
           }}
         >
-          {/* <input
-            required
-            type="text"
-            name="department"
-            placeholder="Department"
-            style={{
-              border: "none",
-              width: "100%",
-              outline: "none",
-              fontSize: "16px",
-              backgroundColor: "transparent",
-              color: "#fff",
-              fontFamily: "Lexend, sans-sarif",
-              fontWeight: "300",
-              lineHeight: "24px",
-            }}
-          /> */}
           <select
             required
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
             name="department"
             placeholder="Department"
             style={{
@@ -255,6 +250,8 @@ const AddNewEmployee = () => {
         >
           <input
             required
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
             type="text"
             name="role"
             placeholder="Role"
@@ -283,6 +280,8 @@ const AddNewEmployee = () => {
         >
           <textarea
             required
+            value={duties}
+            onChange={(e) => setDuties(e.target.value)}
             name="duties"
             placeholder="Role Duties"
             style={{
@@ -310,6 +309,7 @@ const AddNewEmployee = () => {
         }}
       >
         <Button
+          onClick={() => navigate(`/employees/${employee.name}`)}
           sx={{
             color: "#fff",
             fontfamily: "Lexend, sans-serif",
@@ -351,7 +351,7 @@ const AddNewEmployee = () => {
               sx={{ color: "#fff", mx: "6px" }}
             />
           ) : (
-            "Save"
+            "Update"
           )}
         </Button>
       </Box>
@@ -374,7 +374,7 @@ const AddNewEmployee = () => {
 
       <Snackbar
         open={success}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
@@ -384,11 +384,11 @@ const AddNewEmployee = () => {
           variant="filled"
           sx={{ width: "100%" }}
         >
-          Saved Successfuly!
+          Updated Successfuly!
         </Alert>
       </Snackbar>
     </Box>
   );
 };
 
-export default AddNewEmployee;
+export default EditEmployee;

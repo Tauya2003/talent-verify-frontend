@@ -105,6 +105,7 @@ const EmployeeDetails = () => {
         </Box>
 
         <Button
+          onClick={() => navigate(`/employees/${employee.name}/edit`)}
           startIcon={<img src={edit2} alt="edit" />}
           sx={{
             color: "#fff",
