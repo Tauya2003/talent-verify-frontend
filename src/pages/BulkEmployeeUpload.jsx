@@ -1,4 +1,11 @@
-import { Alert, Box, Button, Snackbar, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Snackbar,
+  Typography,
+} from "@mui/material";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import MainContext from "../context/MainContext";
@@ -86,10 +93,22 @@ const BulkEmployeeUpload = () => {
           },
         }}
       >
-        Upload
+        {loading ? (
+          <CircularProgress
+            variant="indeterminate"
+            disableShrink
+            size={24}
+            sx={{ color: "#fff", mx: "6px" }}
+          />
+        ) : (
+          "Upload File"
+        )}
       </Button>
 
-      <Link style={{ textDecoration: "none" }}>
+      <Link
+        style={{ textDecoration: "none" }}
+        to="http://127.0.0.1:8000/api/download/sample-csv"
+      >
         <Typography
           sx={{
             mt: "20px",
@@ -104,7 +123,29 @@ const BulkEmployeeUpload = () => {
             },
           }}
         >
-          Download a sample file
+          Download a sample CSV file
+        </Typography>
+      </Link>
+
+      <Link
+        style={{ textDecoration: "none" }}
+        to="http://127.0.0.1:8000/api/download/sample-excel"
+      >
+        <Typography
+          sx={{
+            mt: "20px",
+            fontSize: "16px",
+            fontFamily: "Lexend, sans-sarif",
+            fontWeight: "300",
+            lineHeight: "24px",
+            color: "#7C5DFA",
+
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
+        >
+          Download a sample Excel file
         </Typography>
       </Link>
 
