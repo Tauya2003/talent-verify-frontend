@@ -128,7 +128,7 @@ export default function DepartmentTable({ employees }) {
 
   return (
     <TableContainer>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <Table sx={{ minWidth: 500 }} aria-label="departments pagination table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Employee ID</StyledTableCell>
@@ -160,7 +160,6 @@ export default function DepartmentTable({ employees }) {
                 {employee.roles.find((emp) => emp.current).name}
               </StyledTableCell>
               <StyledTableCell>
-                {" "}
                 <span
                   style={{
                     color: employee.status ? "#7152F3" : "#ccc",
@@ -223,7 +222,7 @@ export default function DepartmentTable({ employees }) {
           <TableRow
             sx={{
               border: "none",
-              bgcolor: "rgba(162, 161, 168, 0.50)",
+              bgcolor: "#6E7191",
             }}
           >
             <TablePagination
