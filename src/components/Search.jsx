@@ -1,9 +1,24 @@
 import { Box } from "@mui/material";
 import search from "../assets/icons/search.svg";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim() !== "") {
+      navigate(`/search/${searchTerm}`);
+    }
+
+    setSearchTerm("");
+  };
   return (
     <Box
+      component={"form"}
+      onSubmit={handleSubmit}
       sx={{
         display: "flex",
         width: "261px",
@@ -15,6 +30,9 @@ const Search = () => {
     >
       <img src={search} alt="search" />
       <input
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        required
         type="text"
         placeholder="Search..."
         style={{

@@ -19,6 +19,7 @@ import ViewDepartment from "./pages/ViewDepartment";
 import AddNewDepartment from "./pages/AddNewDepartment";
 import EditEmployee from "./pages/EditEmployee";
 import NewRole from "./pages/NewRole";
+import SearchResults from "./pages/SearchResults";
 
 function App() {
   return (
@@ -52,6 +53,8 @@ function App() {
               <Route path=":department_name" element={<ViewDepartment />} />
               <Route path="add-new" element={<AddNewDepartment />} />
             </Route>
+
+            <Route path="/search/:search_term" element={<SearchResults />} />
           </Route>
 
           <Route path="/login" element={<Login />} />
