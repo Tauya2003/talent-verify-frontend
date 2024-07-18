@@ -40,7 +40,6 @@ const LoginForm = () => {
         backgroundColor: "#16151C",
         display: "flex",
         flexDirection: "column",
-        // justifyContent: "center",
         p: "50px",
       }}
     >
@@ -115,8 +114,8 @@ const LoginForm = () => {
           <input
             required
             type="text"
-            name="username"
-            placeholder="Username"
+            name="email"
+            placeholder="Email"
             style={{
               width: "100%",
               border: "none",
@@ -155,43 +154,6 @@ const LoginForm = () => {
             }}
           />
         </Box>
-        {/* 
-          <Stack
-            direction={"row"}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-          >
-            <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <CheckBox
-                defaultChecked={false}
-                sx={{ color: "#7152F3", height: "24px", width: "24px" }}
-              />
-
-              <Typography
-                sx={{
-                  color: "#fff",
-                  fontFamily: "Lexend, sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 300,
-                  lineHeight: "24px",
-                }}
-              >
-                Remember Me
-              </Typography>
-            </Box>
-
-            <Typography
-              sx={{
-                color: "#7152F3",
-                fontFamily: "Lexend, sans-serif",
-                fontSize: "14px",
-                fontWeight: 300,
-                lineHeight: "22px",
-              }}
-            >
-              Forgot Password?
-            </Typography>
-          </Stack> */}
 
         <Button
           type="submit"
