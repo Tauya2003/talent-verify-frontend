@@ -197,7 +197,7 @@ const Login = () => {
               }}
             />
           </Box>
-
+          {/* 
           <Stack
             direction={"row"}
             justifyContent={"space-between"}
@@ -205,7 +205,7 @@ const Login = () => {
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <CheckBox
-                defaultChecked
+                defaultChecked={false}
                 sx={{ color: "#7152F3", height: "24px", width: "24px" }}
               />
 
@@ -233,7 +233,7 @@ const Login = () => {
             >
               Forgot Password?
             </Typography>
-          </Stack>
+          </Stack> */}
 
           <Button
             type="submit"
@@ -244,7 +244,7 @@ const Login = () => {
               fontWeight: 300,
               lineHeight: "24px",
               textTransform: "none",
-              padding: "20px",
+              padding: "14px",
               borderRadius: "10px",
               backgroundColor: "#7152F3",
 
