@@ -116,73 +116,96 @@ const AllDepartments = () => {
                 to={`/departments/${department.name}`}
                 style={{ textDecoration: "none" }}
               >
-                <Typography
-                  sx={{
-                    color: "#7152F3",
-                    fontFamily: "Lexend, sans-serif",
-                    fontSize: "16px",
-                    fontWeight: 300,
-                    lineHeight: "24px",
+                {employees?.filter(
+                  (employee) => employee?.department === department?.name
+                ).length !== 0 ? (
+                  <Typography
+                    sx={{
+                      color: "#7152F3",
+                      fontFamily: "Lexend, sans-serif",
+                      fontSize: "14px",
+                      fontWeight: 300,
+                      lineHeight: "24px",
 
-                    "&:hover": { opacity: 0.9, textDecoration: "underline" },
-                  }}
-                >
-                  View All
-                </Typography>
+                      "&:hover": { opacity: 0.9, textDecoration: "underline" },
+                    }}
+                  >
+                    View All
+                  </Typography>
+                ) : (
+                  ""
+                )}
               </Link>
             </Stack>
 
             <Stack direction={"column"} mt={"20px"} gap={"18px"}>
-              {employees
-                ?.filter(
-                  (employee) => employee?.department === department?.name
-                )
-                .slice(0, 5)
-                .map((employee, index) => (
-                  <Stack
-                    key={index}
-                    gap={"10px"}
-                    direction={"row"}
-                    alignItems={"center"}
-                  >
-                    <Avatar sx={{ width: "40px", height: "40px" }} />
-
-                    <Box>
-                      <Typography
-                        sx={{
-                          fontFamily: "Lexend, sans-serif",
-                          fontSize: "16px",
-                          fontWeight: 300,
-                          lineHeight: "24px",
-                        }}
-                      >
-                        {employee?.name}
-                      </Typography>
-
-                      <Typography
-                        sx={{
-                          color: "#A2A1A8",
-                          fontFamily: "Lexend, sans-serif",
-                          fontSize: "12px",
-                          fontWeight: 300,
-                          lineHeight: "18px",
-                        }}
-                      >
-                        {
-                          employee?.roles?.find((employee) => employee.current)
-                            ?.name
-                        }
-                      </Typography>
-                    </Box>
-
-                    <IconButton
-                      onClick={() => navigate(`/employees/${employee.name}`)}
-                      sx={{ ml: "auto" }}
+              {employees?.filter(
+                (employee) => employee?.department === department?.name
+              ).length !== 0 ? (
+                employees
+                  ?.filter(
+                    (employee) => employee?.department === department?.name
+                  )
+                  .slice(0, 5)
+                  .map((employee, index) => (
+                    <Stack
+                      key={index}
+                      gap={"10px"}
+                      direction={"row"}
+                      alignItems={"center"}
                     >
-                      <img src={right} alt="direction right" />
-                    </IconButton>
-                  </Stack>
-                ))}
+                      <Avatar sx={{ width: "40px", height: "40px" }} />
+
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: "Lexend, sans-serif",
+                            fontSize: "16px",
+                            fontWeight: 300,
+                            lineHeight: "24px",
+                          }}
+                        >
+                          {employee?.name}
+                        </Typography>
+
+                        <Typography
+                          sx={{
+                            color: "#A2A1A8",
+                            fontFamily: "Lexend, sans-serif",
+                            fontSize: "12px",
+                            fontWeight: 300,
+                            lineHeight: "18px",
+                          }}
+                        >
+                          {
+                            employee?.roles?.find(
+                              (employee) => employee.current
+                            )?.name
+                          }
+                        </Typography>
+                      </Box>
+
+                      <IconButton
+                        onClick={() => navigate(`/employees/${employee.name}`)}
+                        sx={{ ml: "auto" }}
+                      >
+                        <img src={right} alt="direction right" />
+                      </IconButton>
+                    </Stack>
+                  ))
+              ) : (
+                <Typography
+                  sx={{
+                    color: "#6E7191",
+                    fontFamily: "Lexend, sans-serif",
+                    fontSize: "14px",
+                    fontWeight: 300,
+                    lineHeight: "21px",
+                  }}
+                >
+                  No employees available in this department
+                </Typography>
+              )}
             </Stack>
           </Box>
         ))}
