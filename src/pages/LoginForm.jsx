@@ -40,16 +40,11 @@ const LoginForm = () => {
         backgroundColor: "#16151C",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        px: "50px",
+        // justifyContent: "center",
+        p: "50px",
       }}
     >
-      <Stack
-        direction={"row"}
-        gap={"12px"}
-        alignItems={"center"}
-        marginBottom={"40px"}
-      >
+      <Stack gap={"12px"} alignItems={"center"} marginBottom={"40px"}>
         <Box
           sx={{
             width: "50px",
@@ -87,6 +82,7 @@ const LoginForm = () => {
       >
         Welcome 👋
       </Typography>
+
       <Typography
         sx={{
           fontFamily: "Lexend, sans-serif",
@@ -200,6 +196,7 @@ const LoginForm = () => {
         <Button
           type="submit"
           sx={{
+            mt: "10px",
             color: "#fff",
             fontFamily: "Lexend, sans-serif",
             fontSize: "16px",
@@ -226,42 +223,42 @@ const LoginForm = () => {
             "Login"
           )}
         </Button>
-
-        <Stack
-          width={"100%"}
-          direction={"column"}
-          alignItems={"center"}
-          mt={"100px"}
-        >
-          <Typography
-            sx={{
-              color: "#6E7191",
-              fontFamily: "Lexend, sans-serif",
-              fontSize: "14px",
-              fontWeight: 300,
-              lineHeight: "24px",
-            }}
-          >
-            Have no account yet?
-          </Typography>
-
-          <Button
-            onClick={() => navigate("/signup")}
-            sx={{
-              p: 0,
-              m: "5px",
-              color: "#7152F3",
-              fontFamily: "Lexend, sans-serif",
-              fontSize: "12px",
-              fontWeight: 400,
-              letterSpacing: "2px ",
-              lineHeight: "24px",
-            }}
-          >
-            Signup
-          </Button>
-        </Stack>
       </Box>
+
+      <Stack
+        width={"100%"}
+        direction={"column"}
+        alignItems={"center"}
+        mt={"auto"}
+      >
+        <Typography
+          sx={{
+            color: "#6E7191",
+            fontFamily: "Lexend, sans-serif",
+            fontSize: "14px",
+            fontWeight: 300,
+            lineHeight: "24px",
+          }}
+        >
+          Have no account yet?
+        </Typography>
+
+        <Button
+          onClick={() => navigate("/signup")}
+          sx={{
+            p: 0,
+            m: "5px",
+            color: "#7152F3",
+            fontFamily: "Lexend, sans-serif",
+            fontSize: "12px",
+            fontWeight: 400,
+            letterSpacing: "2px ",
+            lineHeight: "24px",
+          }}
+        >
+          Signup
+        </Button>
+      </Stack>
 
       <Snackbar
         open={loginFailed}

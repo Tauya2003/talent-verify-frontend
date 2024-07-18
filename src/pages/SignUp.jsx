@@ -7,8 +7,10 @@ import {
 } from "@mui/material";
 import React, { useContext } from "react";
 import MainContext from "../context/MainContext";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const { loginLoading } = useContext(MainContext);
 
   return (
@@ -20,7 +22,6 @@ const SignUp = () => {
         backgroundColor: "#16151C",
         display: "flex",
         flexDirection: "column",
-        // justifyContent: "center",
         alignItems: "center",
         p: "50px",
       }}
@@ -235,7 +236,7 @@ const SignUp = () => {
         </Typography>
 
         <Button
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/login")}
           sx={{
             p: 0,
             m: "5px",
