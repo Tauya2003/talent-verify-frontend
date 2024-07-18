@@ -1,17 +1,44 @@
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
+  Snackbar,
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useContext } from "react";
-import MainContext from "../context/MainContext";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import SignupModal from "../components/SignupModal";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { loginLoading } = useContext(MainContext);
+  const { createUser, loginLoading, emailExists, setEmailExists } =
+    useContext(AuthContext);
+
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [match, setMatch] = useState(true);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password !== confirmPass) {
+      setMatch(false);
+      return;
+    }
+
+    createUser(e);
+  };
+
+  const handleClose = (e) => {
+    const reason = e?.reason;
+    if (reason === "clickaway") {
+      return;
+    }
+    setMatch(true);
+    setEmailExists(null);
+  };
 
   return (
     <Box
@@ -51,6 +78,7 @@ const SignUp = () => {
 
       <Box
         component={"form"}
+        onSubmit={handleSubmit}
         sx={{
           gap: "16px",
           display: "flex",
@@ -128,6 +156,8 @@ const SignUp = () => {
               required
               type="password"
               name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               style={{
                 width: "100%",
@@ -171,6 +201,8 @@ const SignUp = () => {
               type="password"
               name="confirm password"
               placeholder="Confirm Password"
+              value={confirmPass}
+              onChange={(e) => setConfirmPass(e.target.value)}
               style={{
                 width: "100%",
                 border: "none",
@@ -251,6 +283,40 @@ const SignUp = () => {
           Login
         </Button>
       </Stack>
+
+      <Snackbar
+        open={!match}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Passwords do not match
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={emailExists}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {emailExists}
+        </Alert>
+      </Snackbar>
+
+      <SignupModal />
     </Box>
   );
 };

@@ -2,7 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
 
-const BASE_URL = "http://127.0.0.1:8000/api/auth";
+const BASE_URL = "http://127.0.0.1:8000/api";
 
 const AuthContext = createContext(null);
 
@@ -22,13 +22,15 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
+  const [userCreated, setUserCreated] = useState(false);
+  const [emailExists, setEmailExists] = useState(null);
 
   const loginUser = async (e) => {
     e.preventDefault();
     setLoginLoading(true);
 
     try {
-      const response = await axios.post(`${BASE_URL}/token/`, {
+      const response = await axios.post(`${BASE_URL}/auth/token/`, {
         email: e.target.email.value,
         password: e.target.password.value,
       });
@@ -55,6 +57,32 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("authTokens");
   };
 
+  const createUser = async (e) => {
+    e.preventDefault();
+    setLoginLoading(true);
+
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await axios.post(`${BASE_URL}/users/new/`, {
+        email: formData.get("email"),
+        password: formData.get("password"),
+      });
+      if (response.status === 201) {
+        setUserCreated(true);
+        formData.clear();
+      }
+    } catch (error) {
+      if (error.response.data.email) {
+        setEmailExists(error.response.data.email);
+      } else {
+        console.log(error.response.data);
+      }
+    } finally {
+      setLoginLoading(false);
+    }
+  };
+
   const updateToken = async () => {
     try {
       const response = await axios.post(`${BASE_URL}/token/refresh/`, {
@@ -79,10 +107,16 @@ export const AuthProvider = ({ children }) => {
     user: user,
     loginLoading: loginLoading,
     loginFailed: loginFailed,
+    userCreated: userCreated,
+    emailExists: emailExists,
 
+    createUser: createUser,
     loginUser: loginUser,
     logout: logout,
     setLoginFailed: setLoginFailed,
+    setLoginLoading: setLoginLoading,
+    setUserCreated: setUserCreated,
+    setEmailExists: setEmailExists,
   };
 
   useEffect(() => {

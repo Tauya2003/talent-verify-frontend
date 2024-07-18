@@ -1,23 +1,19 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import party from "../assets/icons/party.svg";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
 
 export default function SignupModal() {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const { userCreated, setUserCreated } = useContext(AuthContext);
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
-        open={open}
-        // onClose={handleClose}
+        open={userCreated}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         sx={{
@@ -80,7 +76,10 @@ export default function SignupModal() {
           </Typography>
 
           <Button
-            onClick={() => navigate("/login")}
+            onClick={() => {
+              navigate("/login");
+              setUserCreated(false);
+            }}
             sx={{
               color: "#fff",
               fontFamily: "Lexend, sans-sarif",
