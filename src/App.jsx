@@ -20,6 +20,8 @@ import AddNewDepartment from "./pages/AddNewDepartment";
 import EditEmployee from "./pages/EditEmployee";
 import NewRole from "./pages/NewRole";
 import SearchResults from "./pages/SearchResults";
+import LoginForm from "./pages/LoginForm";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
@@ -57,7 +59,10 @@ function App() {
             <Route path="/search/:search_term" element={<SearchResults />} />
           </Route>
 
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />}>
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Route>
         </Routes>
       </AuthProvider>
     </MainProvider>

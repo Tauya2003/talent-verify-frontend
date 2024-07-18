@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const response = await axios.post(`${BASE_URL}/token/`, {
-        username: e.target.username.value,
+        email: e.target.email.value,
         password: e.target.password.value,
       });
 
