@@ -57,7 +57,7 @@ export default function SignupModal() {
               lineHeight: "40px",
             }}
           >
-            Password Update Successfully
+            Account Created!
           </Typography>
 
           <Typography
@@ -72,7 +72,7 @@ export default function SignupModal() {
               mt: "5px",
             }}
           >
-            Your password has been update successfully
+            You can now login to your account
           </Typography>
 
           <Button
@@ -98,7 +98,7 @@ export default function SignupModal() {
               },
             }}
           >
-            Back to Login
+            Login to your account
           </Button>
         </Box>
       </Modal>
