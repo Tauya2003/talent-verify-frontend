@@ -118,6 +118,7 @@ const CompanyDetails = () => {
           <input
             required
             type="text"
+            maxLength={20}
             name="regNo"
             placeholder="Company Registration Number"
             style={{

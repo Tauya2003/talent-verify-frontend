@@ -239,6 +239,52 @@ export const MainProvider = ({ children }) => {
     });
   };
 
+  // register compnay
+  const registerCompany = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get("name"),
+      registration_date: formData.get("regDate"),
+      registration_number: formData.get("regNo"),
+      address: formData.get("address"),
+      contact_person: formData.get("contactPerson"),
+      phone: formData.get("phone"),
+      email: formData.get("email"),
+    };
+
+    try {
+      postToAPI("companies/new/", data).then((response) => {
+        if (response.status === 201) {
+          setCompany(response.data);
+          setLoading(false);
+          setSuccess(true);
+          form.reset();
+        } else {
+          if (response.data.error.email[0]) {
+            setError(response.data.error.email[0]);
+          } else if (response.data.error.registration_number[0]) {
+            setError(response.data.error.registration_number[0]);
+          } else if (response.data.error.non_field_errors[0]) {
+            setError(response.data.error.non_field_errors[0]);
+          } else {
+            setError("An error occurred. Please try again.");
+          }
+          setLoading(false);
+          setSuccess(false);
+        }
+      });
+    } catch (err) {
+      setError(err);
+      setLoading(false);
+      setSuccess(false);
+    }
+  };
+
   useEffect(() => {
     fetchFromAPI("employees/").then((response) => {
       if (response.status === 200) {
@@ -270,6 +316,7 @@ export const MainProvider = ({ children }) => {
     uploadfile,
     setError,
     setSuccess,
+    registerCompany,
   };
 
   return (
