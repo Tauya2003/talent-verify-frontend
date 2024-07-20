@@ -1,13 +1,46 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
-import React from "react";
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Snackbar,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React, { useContext } from "react";
 import camera from "../assets/icons/camera.svg";
 import { useNavigate } from "react-router-dom";
+import MainContext from "../context/MainContext";
+import AuthContext from "../context/AuthContext";
 
 const CompanyDetails = () => {
   const navigate = useNavigate();
+  const { user, updateUserCo } = useContext(AuthContext);
+  const {
+    registerCompany,
+    error,
+    success,
+    setError,
+    setSuccess,
+    loading,
+    company,
+  } = useContext(MainContext);
+
+  const handleClose = (event) => {
+    const reason = event?.reason;
+    if (reason === "clickaway") {
+      return;
+    }
+
+    success && updateUserCo(user.email, company.registration_number);
+    success && navigate("departments");
+
+    setError(null);
+    setSuccess(false);
+  };
 
   return (
-    <>
+    <Box component={"form"} onSubmit={registerCompany}>
       <Stack width={"100%"} direction={"row"} alignItems={"center"} spacing={2}>
         <Box
           sx={{
@@ -262,8 +295,7 @@ const CompanyDetails = () => {
         }}
       >
         <Button
-          // type="submit"
-          onClick={() => navigate("departments")}
+          type="submit"
           sx={{
             color: "#fff",
             fontfamily: "Lexend, sans-serif",
@@ -280,7 +312,7 @@ const CompanyDetails = () => {
             },
           }}
         >
-          {/* {loading ? (
+          {loading ? (
             <CircularProgress
               variant="indeterminate"
               disableShrink
@@ -288,12 +320,43 @@ const CompanyDetails = () => {
               sx={{ color: "#fff", mx: "6px" }}
             />
           ) : (
-            "Save"
-          )} */}
-          Next
+            "Next"
+          )}
         </Button>
       </Box>
-    </>
+
+      <Snackbar
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {error ? error : "An error occurred. Please try again."}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={success}
+        autoHideDuration={2500}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Company details saved successfuly🎉
+        </Alert>
+      </Snackbar>
+    </Box>
   );
 };
 

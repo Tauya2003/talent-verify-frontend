@@ -1,6 +1,8 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
+import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { patch } from "../utils/update";
 
 const BASE_URL = "http://127.0.0.1:8000/api";
 
@@ -24,6 +26,7 @@ export const AuthProvider = ({ children }) => {
   const [loginFailed, setLoginFailed] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
   const [emailExists, setEmailExists] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -103,13 +106,33 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // update user.company
+  const updateUserCo = (email, comp) => {
+    fetchFromAPI("users/").then((response) => {
+      if (response.status === 200) {
+        const user = response.data.find((user) => user.email === email);
+        setCurrentUser(user);
+      }
+
+      patch(`users/${currentUser.id}/`, {
+        ...currentUser,
+        company: comp,
+      }).then((response) => {
+        if (response.status === 200) {
+          setUser([...user, response.data]);
+        }
+      });
+    });
+  };
+
   let contextData = {
     user: user,
-    loginLoading: loginLoading,
-    loginFailed: loginFailed,
-    userCreated: userCreated,
-    emailExists: emailExists,
+    loginLoading,
+    loginFailed,
+    userCreated,
+    emailExists,
 
+    updateUserCo,
     createUser: createUser,
     loginUser: loginUser,
     logout: logout,

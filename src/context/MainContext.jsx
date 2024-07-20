@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { postToAPI } from "../utils/postToAPi";
-import { update } from "../utils/update";
+import { patch, update } from "../utils/update";
 import axios from "axios";
 
 const MainContext = createContext(null);
@@ -265,12 +265,12 @@ export const MainProvider = ({ children }) => {
           setSuccess(true);
           form.reset();
         } else {
-          if (response.data.error.email[0]) {
-            setError(response.data.error.email[0]);
-          } else if (response.data.error.registration_number[0]) {
-            setError(response.data.error.registration_number[0]);
-          } else if (response.data.error.non_field_errors[0]) {
-            setError(response.data.error.non_field_errors[0]);
+          if (response?.data?.error?.email !== undefined) {
+            setError(response?.data?.error?.email[0]);
+          } else if (response?.data?.error?.registration_number !== undefined) {
+            setError(response?.data?.error?.registration_number[0]);
+          } else if (response?.data?.error?.non_field_errors !== undefined) {
+            setError(response?.data?.error?.non_field_errors[0]);
           } else {
             setError("An error occurred. Please try again.");
           }
@@ -280,26 +280,28 @@ export const MainProvider = ({ children }) => {
       });
     } catch (err) {
       setError(err);
-      setLoading(false);
       setSuccess(false);
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchFromAPI("employees/").then((response) => {
-      if (response.status === 200) {
-        setEmployees(response.data);
-      }
-    });
+  // useEffect(() => {
+  //   fetchFromAPI("employees/").then((response) => {
+  //     if (response.status === 200) {
+  //       setEmployees(response.data);
+  //     }
+  //   });
 
-    fetchFromAPI("companies/").then((response) => {
-      if (response.status === 200) {
-        setCompany(response.data[0]);
+  //   fetchFromAPI("companies/").then((response) => {
+  //     if (response.status === 200) {
+  //       setCompany(response.data[0]);
 
-        setDepartments(response.data[0].departments);
-      }
-    });
-  }, [employees.length, departments.length]);
+  //       setDepartments(response.data[0].departments);
+  //     }
+  //   });
+  // }, [employees.length, departments.length]);
 
   const contextData = {
     employees,
