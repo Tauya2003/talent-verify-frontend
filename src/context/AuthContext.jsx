@@ -107,10 +107,7 @@ export const AuthProvider = ({ children }) => {
 
   // update user.company
   const updateUserCo = (email, comp) => {
-    console.log(email);
-    console.log(comp);
     fetchFromAPI("users/").then((response) => {
-      console.log(response);
       if (response.status === 200) {
         const currentUser = response.data.find((user) => user.email === email);
 

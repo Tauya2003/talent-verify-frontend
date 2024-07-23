@@ -10,10 +10,19 @@ const Dashboard = () => {
   const location = useLocation();
   const { company } = useContext(MainContext);
   const { user } = useContext(AuthContext);
+  const { departments } = useContext(MainContext);
 
   if (user.company === "") {
     return (
       <Navigate to="/add-company-details" state={{ from: location }} replace />
+    );
+  } else if (departments?.length <= 0) {
+    return (
+      <Navigate
+        to="/add-company-details/departments"
+        state={{ from: location }}
+        replace
+      />
     );
   }
 

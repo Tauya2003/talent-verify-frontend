@@ -1,7 +1,5 @@
-import { createContext, useEffect, useState } from "react";
-import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { createContext, useState } from "react";
 import { postToAPI } from "../utils/postToAPi";
-import { patch, update } from "../utils/update";
 import axios from "axios";
 
 const MainContext = createContext(null);
@@ -286,22 +284,6 @@ export const MainProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
-  // useEffect(() => {
-  //   fetchFromAPI("employees/").then((response) => {
-  //     if (response.status === 200) {
-  //       setEmployees(response.data);
-  //     }
-  //   });
-
-  //   fetchFromAPI("companies/").then((response) => {
-  //     if (response.status === 200) {
-  //       setCompany(response.data[0]);
-
-  //       setDepartments(response.data[0].departments);
-  //     }
-  //   });
-  // }, [employees.length, departments.length]);
 
   const contextData = {
     employees,

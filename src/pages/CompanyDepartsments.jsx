@@ -6,8 +6,15 @@ import MainContext from "../context/MainContext";
 const CompanyDepartsments = () => {
   const navigate = useNavigate();
 
-  const { addNewDepartment, loading, error, setError, success, setSuccess } =
-    useContext(MainContext);
+  const {
+    addNewDepartment,
+    loading,
+    departments,
+    error,
+    setError,
+    success,
+    setSuccess,
+  } = useContext(MainContext);
 
   const handleClose = (event) => {
     const reason = event?.reason;
@@ -128,6 +135,13 @@ const CompanyDepartsments = () => {
         </Button>
 
         <Button
+          onClick={() => {
+            if (departments?.length <= 0) {
+              alert("You should add atleast 1 department");
+            } else {
+              navigate("/");
+            }
+          }}
           sx={{
             color: "#fff",
             fontfamily: "Lexend, sans-serif",
