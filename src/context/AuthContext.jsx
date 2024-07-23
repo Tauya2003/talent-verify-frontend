@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }) => {
   const [loginFailed, setLoginFailed] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
   const [emailExists, setEmailExists] = useState(null);
-  // const [currentUser, setCurrentUser] = useState();
 
   const loginUser = async (e) => {
     e.preventDefault();

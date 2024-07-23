@@ -70,7 +70,7 @@ export const MainProvider = ({ children }) => {
 
     const data = {
       name: formData.get("department_name"),
-      company: company.name,
+      company: company.registration_number,
     };
 
     try {
@@ -319,6 +319,10 @@ export const MainProvider = ({ children }) => {
     setError,
     setSuccess,
     registerCompany,
+
+    setCompany,
+    setDepartments,
+    setEmployees,
   };
 
   return (

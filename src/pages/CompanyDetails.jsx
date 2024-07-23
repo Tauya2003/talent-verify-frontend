@@ -33,7 +33,6 @@ const CompanyDetails = () => {
     }
 
     success && updateUserCo(user.email, company.registration_number);
-    console.log(user.email, company.registration_number);
     success && navigate("departments");
 
     setError(null);
