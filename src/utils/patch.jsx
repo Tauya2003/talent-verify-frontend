@@ -8,15 +8,6 @@ const options = {
   },
 };
 
-export const update = async (url, data) => {
-  try {
-    const response = await axios.put(`${BASE_URL}/${url}`, data, options);
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
-
 export const patch = async (url, data) => {
   try {
     const response = await axios.patch(`${BASE_URL}/${url}`, data, options);

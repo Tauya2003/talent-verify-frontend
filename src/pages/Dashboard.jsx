@@ -3,9 +3,19 @@ import React, { useContext } from "react";
 import users from "../assets/icons/users.svg";
 import Navbar from "../components/Navbar";
 import MainContext from "../context/MainContext";
+import AuthContext from "../context/AuthContext";
+import { Navigate, useLocation } from "react-router-dom";
 
 const Dashboard = () => {
+  const location = useLocation();
   const { company } = useContext(MainContext);
+  const { user } = useContext(AuthContext);
+
+  if (user.company === "") {
+    return (
+      <Navigate to="/add-company-details" state={{ from: location }} replace />
+    );
+  }
 
   return (
     <Box sx={{ py: "15px", pr: "10px", flex: 1 }}>

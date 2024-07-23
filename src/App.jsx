@@ -22,6 +22,9 @@ import NewRole from "./pages/NewRole";
 import SearchResults from "./pages/SearchResults";
 import LoginForm from "./pages/LoginForm";
 import SignUp from "./pages/SignUp";
+import AddCompanyDetails from "./pages/AddCompanyDetails";
+import CompanyDetails from "./pages/CompanyDetails";
+import CompanyDepartsments from "./pages/CompanyDepartsments";
 
 function App() {
   return (
@@ -54,6 +57,11 @@ function App() {
               <Route index element={<AllDepartments />} />
               <Route path=":department_name" element={<ViewDepartment />} />
               <Route path="add-new" element={<AddNewDepartment />} />
+            </Route>
+
+            <Route path="/add-company-details" element={<AddCompanyDetails />}>
+              <Route index element={<CompanyDetails />} />
+              <Route path="departments" element={<CompanyDepartsments />} />
             </Route>
 
             <Route path="/search/:search_term" element={<SearchResults />} />

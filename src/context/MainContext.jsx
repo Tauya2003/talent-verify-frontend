@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { postToAPI } from "../utils/postToAPi";
-import { update } from "../utils/update";
+import { patch, update } from "../utils/update";
 import axios from "axios";
 
 const MainContext = createContext(null);
@@ -239,21 +239,69 @@ export const MainProvider = ({ children }) => {
     });
   };
 
-  useEffect(() => {
-    fetchFromAPI("employees/").then((response) => {
-      if (response.status === 200) {
-        setEmployees(response.data);
-      }
-    });
+  // register compnay
+  const registerCompany = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    const form = e.target;
+    const formData = new FormData(form);
 
-    fetchFromAPI("companies/").then((response) => {
-      if (response.status === 200) {
-        setCompany(response.data[0]);
+    const data = {
+      name: formData.get("name"),
+      registration_date: formData.get("regDate"),
+      registration_number: formData.get("regNo"),
+      address: formData.get("address"),
+      contact_person: formData.get("contactPerson"),
+      phone: formData.get("phone"),
+      email: formData.get("email"),
+    };
 
-        setDepartments(response.data[0].departments);
-      }
-    });
-  }, [employees.length, departments.length]);
+    try {
+      postToAPI("companies/new/", data).then((response) => {
+        if (response.status === 201) {
+          setCompany(response.data);
+          setLoading(false);
+          setSuccess(true);
+          form.reset();
+        } else {
+          if (response?.data?.error?.email !== undefined) {
+            setError(response?.data?.error?.email[0]);
+          } else if (response?.data?.error?.registration_number !== undefined) {
+            setError(response?.data?.error?.registration_number[0]);
+          } else if (response?.data?.error?.non_field_errors !== undefined) {
+            setError(response?.data?.error?.non_field_errors[0]);
+          } else {
+            setError("An error occurred. Please try again.");
+          }
+          setLoading(false);
+          setSuccess(false);
+        }
+      });
+    } catch (err) {
+      setError(err);
+      setSuccess(false);
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // useEffect(() => {
+  //   fetchFromAPI("employees/").then((response) => {
+  //     if (response.status === 200) {
+  //       setEmployees(response.data);
+  //     }
+  //   });
+
+  //   fetchFromAPI("companies/").then((response) => {
+  //     if (response.status === 200) {
+  //       setCompany(response.data[0]);
+
+  //       setDepartments(response.data[0].departments);
+  //     }
+  //   });
+  // }, [employees.length, departments.length]);
 
   const contextData = {
     employees,
@@ -270,6 +318,7 @@ export const MainProvider = ({ children }) => {
     uploadfile,
     setError,
     setSuccess,
+    registerCompany,
   };
 
   return (
