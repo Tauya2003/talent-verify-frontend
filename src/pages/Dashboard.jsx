@@ -10,10 +10,19 @@ const Dashboard = () => {
   const location = useLocation();
   const { company } = useContext(MainContext);
   const { user } = useContext(AuthContext);
+  const { departments } = useContext(MainContext);
 
   if (user.company === "") {
     return (
       <Navigate to="/add-company-details" state={{ from: location }} replace />
+    );
+  } else if (departments?.length <= 0) {
+    return (
+      <Navigate
+        to="/add-company-details/departments"
+        state={{ from: location }}
+        replace
+      />
     );
   }
 
@@ -313,7 +322,7 @@ const Dashboard = () => {
                 ml: "10px",
               }}
             >
-              {company?.registartion_number}
+              {company?.registration_number}
             </Typography>
           </Box>
         </Box>
@@ -376,6 +385,7 @@ const Dashboard = () => {
                 fontFamily: "Lexend, sans-serif",
                 fontSize: "18px",
                 lineHeight: "40px",
+                width: "100%",
                 ml: "10px",
               }}
             >

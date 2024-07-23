@@ -1,11 +1,32 @@
-import { Box, Button } from "@mui/material";
-import React from "react";
+import { Alert, Box, Button, CircularProgress, Snackbar } from "@mui/material";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import MainContext from "../context/MainContext";
 
 const CompanyDepartsments = () => {
   const navigate = useNavigate();
+
+  const {
+    addNewDepartment,
+    loading,
+    departments,
+    error,
+    setError,
+    success,
+    setSuccess,
+  } = useContext(MainContext);
+
+  const handleClose = (event) => {
+    const reason = event?.reason;
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setError(null);
+    setSuccess(false);
+  };
   return (
-    <>
+    <Box component={"form"} onSubmit={addNewDepartment}>
       <Box
         sx={{
           display: "flex",
@@ -101,7 +122,7 @@ const CompanyDepartsments = () => {
             },
           }}
         >
-          {/* {loading ? (
+          {loading ? (
             <CircularProgress
               variant="indeterminate"
               disableShrink
@@ -109,12 +130,18 @@ const CompanyDepartsments = () => {
               sx={{ color: "#fff", mx: "6px" }}
             />
           ) : (
-            "Save"
-          )} */}
-          Add
+            "Add"
+          )}
         </Button>
 
         <Button
+          onClick={() => {
+            if (departments?.length <= 0) {
+              alert("You should add atleast 1 department");
+            } else {
+              navigate("/");
+            }
+          }}
           sx={{
             color: "#fff",
             fontfamily: "Lexend, sans-serif",
@@ -130,7 +157,39 @@ const CompanyDepartsments = () => {
           Done 🎉
         </Button>
       </Box>
-    </>
+
+      <Snackbar
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {error ? error : "An error occurred. Please try again."}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={success}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Saved Successfuly!
+        </Alert>
+      </Snackbar>
+    </Box>
   );
 };
 

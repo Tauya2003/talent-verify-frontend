@@ -90,7 +90,9 @@ const Navbar = () => {
             textTransform: "capitalize",
           }}
         >
-          {isDashboard ? "Hello " + user.username + " 👋🏻" : heading}
+          {isDashboard
+            ? "Hello " + (user.name || user.email.split("@")[0]) + " 👋🏻"
+            : heading}
         </Typography>
 
         {isDashboard ? (

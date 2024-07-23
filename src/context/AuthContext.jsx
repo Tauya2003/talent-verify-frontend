@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }) => {
   const [loginFailed, setLoginFailed] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
   const [emailExists, setEmailExists] = useState(null);
-  // const [currentUser, setCurrentUser] = useState();
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -108,10 +107,7 @@ export const AuthProvider = ({ children }) => {
 
   // update user.company
   const updateUserCo = (email, comp) => {
-    console.log(email);
-    console.log(comp);
     fetchFromAPI("users/").then((response) => {
-      console.log(response);
       if (response.status === 200) {
         const currentUser = response.data.find((user) => user.email === email);
 

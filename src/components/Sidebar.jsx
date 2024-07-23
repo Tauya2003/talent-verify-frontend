@@ -44,6 +44,7 @@ const Sidebar = () => {
       <Stack gap={"10px"}>
         {menuItems.map((item, index) => (
           <Button
+            disabled={item.name === "Company Info"}
             key={index}
             onClick={() => handleClick(index, item.link)}
             startIcon={<img src={item.icon} alt={item.name} />}
