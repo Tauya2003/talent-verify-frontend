@@ -322,7 +322,7 @@ const Dashboard = () => {
                 ml: "10px",
               }}
             >
-              {company?.registartion_number}
+              {company?.registration_number}
             </Typography>
           </Box>
         </Box>
@@ -385,6 +385,7 @@ const Dashboard = () => {
                 fontFamily: "Lexend, sans-serif",
                 fontSize: "18px",
                 lineHeight: "40px",
+                width: "100%",
                 ml: "10px",
               }}
             >
