@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:8000/api";
+const BASE_URL = "https://talentverify-9380c5a023d2.herokuapp.com/api";
 
 const options = {
   headers: {

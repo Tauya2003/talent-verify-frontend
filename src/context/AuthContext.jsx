@@ -4,7 +4,7 @@ import { createContext, useEffect, useState } from "react";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { patch } from "../utils/update";
 
-const BASE_URL = "http://127.0.0.1:8000/api";
+const BASE_URL = "https://talentverify-9380c5a023d2.herokuapp.com/api";
 
 const AuthContext = createContext(null);
 
