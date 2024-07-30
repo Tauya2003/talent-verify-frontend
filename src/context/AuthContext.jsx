@@ -95,7 +95,9 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(response.data);
         setUser(jwtDecode(response.data.access));
         localStorage.setItem("authTokens", JSON.stringify(response.data));
-      } else logout();
+      } else {
+        logout();
+      }
     } catch (error) {
       logout();
     }
